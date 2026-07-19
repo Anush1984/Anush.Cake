@@ -1,1 +1,968 @@
-Anush.Cake
+Anush.Cake 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sweet Delights — Handcrafted cakes for every occasion. Order birthday, wedding, and custom cakes online." />
+  <meta name="keywords" content="cakes, bakery, birthday cake, wedding cake, custom cakes, order cake online" />
+  <meta name="author" content="Sweet Delights Bakery" />
+  <meta name="theme-color" content="#d6336c" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Sweet Delights — Handcrafted Cakes" />
+  <meta property="og:description" content="Delicious cakes baked with love. Order online today." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1200" />
+
+  <title>Sweet Delights — Handcrafted Cakes for Every Occasion</title>
+
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ---------- Design Tokens ---------- */
+    :root {
+      --clr-primary: #d6336c;
+      --clr-primary-dark: #a61e4d;
+      --clr-accent: #fab005;
+      --clr-bg: #fff8f3;
+      --clr-surface: #ffffff;
+      --clr-text: #2b2b2b;
+      --clr-muted: #6b6b6b;
+      --clr-border: #f1e3d8;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,.06);
+      --shadow-md: 0 8px 24px rgba(214,51,108,.12);
+      --radius: 14px;
+      --radius-lg: 24px;
+      --transition: 0.3s cubic-bezier(.4,0,.2,1);
+      --container: 1200px;
+    }
+
+    /* ---------- Reset ---------- */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Poppins', system-ui, sans-serif;
+      color: var(--clr-text);
+      background: var(--clr-bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; border: none; background: none; }
+    ul { list-style: none; }
+
+    h1, h2, h3 { font-family: 'Playfair Display', serif; line-height: 1.2; }
+
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ---------- Header ---------- */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 248, 243, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--clr-border);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0;
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--clr-primary);
+    }
+    .logo span { color: var(--clr-accent); }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+    .nav-links a {
+      font-weight: 500;
+      position: relative;
+      transition: color var(--transition);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -4px;
+      width: 0; height: 2px;
+      background: var(--clr-primary);
+      transition: width var(--transition);
+    }
+    .nav-links a:hover, .nav-links a:focus { color: var(--clr-primary); }
+    .nav-links a:hover::after, .nav-links a:focus::after { width: 100%; }
+
+    .nav-actions { display: flex; align-items: center; gap: 1rem; }
+    .cart-btn {
+      position: relative;
+      padding: 0.5rem 1rem;
+      background: var(--clr-primary);
+      color: white;
+      border-radius: var(--radius);
+      font-weight: 500;
+      transition: transform var(--transition), background var(--transition);
+    }
+    .cart-btn:hover { background: var(--clr-primary-dark); transform: translateY(-2px); }
+    .cart-count {
+      position: absolute;
+      top: -6px; right: -6px;
+      background: var(--clr-accent);
+      color: var(--clr-text);
+      font-size: 0.75rem;
+      font-weight: 600;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      color: var(--clr-primary);
+    }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      padding: 4rem 0;
+      background: linear-gradient(135deg, #fff8f3 0%, #ffe8d6 100%);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      margin-bottom: 1rem;
+    }
+    .hero h1 span { color: var(--clr-primary); }
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--clr-muted);
+      margin-bottom: 2rem;
+      max-width: 500px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.9rem 2rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      transition: all var(--transition);
+    }
+    .btn-primary {
+      background: var(--clr-primary);
+      color: white;
+      box-shadow: var(--shadow-md);
+    }
+    .btn-primary:hover { background: var(--clr-primary-dark); transform: translateY(-3px); }
+    .btn-outline {
+      border: 2px solid var(--clr-primary);
+      color: var(--clr-primary);
+      margin-left: 0.8rem;
+    }
+    .btn-outline:hover { background: var(--clr-primary); color: white; }
+
+    .hero-image {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      aspect-ratio: 4/3;
+    }
+    .hero-image img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-badge {
+      position: absolute;
+      top: 1.5rem; right: 1.5rem;
+      background: var(--clr-accent);
+      padding: 0.8rem 1.2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* ---------- Section ---------- */
+    section { padding: 5rem 0; }
+    .section-header { text-align: center; margin-bottom: 3rem; }
+    .section-header h2 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      margin-bottom: 0.5rem;
+    }
+    .section-header p { color: var(--clr-muted); }
+
+    /* ---------- Filters ---------- */
+    .filters {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 2.5rem;
+    }
+    .filter-btn {
+      padding: 0.6rem 1.4rem;
+      border-radius: 50px;
+      border: 2px solid var(--clr-border);
+      background: var(--clr-surface);
+      font-weight: 500;
+      transition: all var(--transition);
+    }
+    .filter-btn:hover { border-color: var(--clr-primary); color: var(--clr-primary); }
+    .filter-btn.active {
+      background: var(--clr-primary);
+      color: white;
+      border-color: var(--clr-primary);
+    }
+
+    /* ---------- Product Grid ---------- */
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 2rem;
+    }
+    .product {
+      background: var(--clr-surface);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition), box-shadow var(--transition);
+      animation: fadeUp 0.5s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .product:hover { transform: translateY(-8px); box-shadow: var(--shadow-md); }
+    .product-image {
+      aspect-ratio: 1;
+      overflow: hidden;
+      position: relative;
+    }
+    .product-image img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .product:hover .product-image img { transform: scale(1.08); }
+    .product-tag {
+      position: absolute;
+      top: 1rem; left: 1rem;
+      background: var(--clr-accent);
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .product-body { padding: 1.2rem; }
+    .product-title { font-size: 1.15rem; margin-bottom: 0.3rem; }
+    .product-desc { color: var(--clr-muted); font-size: 0.9rem; margin-bottom: 1rem; }
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .product-price {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--clr-primary);
+    }
+    .add-btn {
+      background: var(--clr-primary);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius);
+      font-weight: 500;
+      transition: background var(--transition);
+    }
+    .add-btn:hover { background: var(--clr-primary-dark); }
+
+    /* ---------- About ---------- */
+    .about { background: var(--clr-surface); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .about img { border-radius: var(--radius-lg); box-shadow: var(--shadow-md); }
+    .about h2 { margin-bottom: 1rem; }
+    .about p { color: var(--clr-muted); margin-bottom: 1rem; }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--clr-primary);
+    }
+    .stat-label { font-size: 0.85rem; color: var(--clr-muted); }
+
+    /* ---------- Testimonials ---------- */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .testimonial {
+      background: var(--clr-surface);
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      position: relative;
+    }
+    .testimonial::before {
+      content: '"';
+      position: absolute;
+      top: -10px; left: 20px;
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem;
+      color: var(--clr-primary);
+      opacity: 0.2;
+    }
+    .testimonial p { font-style: italic; margin-bottom: 1rem; color: var(--clr-muted); }
+    .testimonial-author { display: flex; align-items: center; gap: 0.8rem; }
+    .avatar {
+      width: 45px; height: 45px;
+      border-radius: 50%;
+      background: var(--clr-primary);
+      color: white;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 600;
+    }
+    .author-name { font-weight: 600; }
+    .author-role { font-size: 0.85rem; color: var(--clr-muted); }
+
+    /* ---------- Contact ---------- */
+    .contact { background: var(--clr-surface); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+    .contact-info h3 { margin-bottom: 1rem; }
+    .contact-item {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+      align-items: flex-start;
+    }
+    .contact-icon {
+      width: 40px; height: 40px;
+      background: var(--clr-primary);
+      color: white;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 2px solid var(--clr-border);
+      border-radius: var(--radius);
+      font-family: inherit;
+      transition: border-color var(--transition);
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      outline: none;
+      border-color: var(--clr-primary);
+    }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-error { color: #e03131; font-size: 0.85rem; margin-top: 0.3rem; display: none; }
+    .form-group.error input, .form-group.error textarea { border-color: #e03131; }
+    .form-group.error .form-error { display: block; }
+
+    /* ---------- Footer ---------- */
+    .footer {
+      background: #2b2b2b;
+      color: #ddd;
+      padding: 3rem 0 1.5rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    .footer h4 { color: white; margin-bottom: 1rem; font-family: 'Poppins', sans-serif; }
+    .footer a { color: #bbb; transition: color var(--transition); }
+    .footer a:hover { color: var(--clr-accent); }
+    .footer ul li { margin-bottom: 0.5rem; }
+    .socials { display: flex; gap: 0.8rem; margin-top: 1rem; }
+    .socials a {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      transition: background var(--transition);
+    }
+    .socials a:hover { background: var(--clr-primary); }
+    .footer-bottom {
+      text-align: center;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.9rem;
+      color: #999;
+    }
+
+    /* ---------- Cart Modal ---------- */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .modal.open { display: flex; animation: fadeIn 0.3s; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .modal-content {
+      background: var(--clr-surface);
+      border-radius: var(--radius-lg);
+      max-width: 500px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 2rem;
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .modal-close {
+      font-size: 1.5rem;
+      color: var(--clr-muted);
+    }
+    .cart-item {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--clr-border);
+    }
+    .cart-item img { width: 60px; height: 60px; border-radius: 8px; object-fit: cover; }
+    .cart-item-info { flex: 1; }
+    .cart-item-info h4 { font-family: 'Poppins', sans-serif; font-size: 1rem; }
+    .cart-item-info p { color: var(--clr-primary); font-weight: 600; }
+    .remove-btn { color: #e03131; font-size: 0.85rem; }
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 2px solid var(--clr-border);
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    .empty-cart { text-align: center; padding: 2rem 0; color: var(--clr-muted); }
+
+    /* ---------- Toast ---------- */
+    .toast {
+      position: fixed;
+      bottom: 2rem; right: 2rem;
+      background: var(--clr-primary);
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+      transform: translateX(120%);
+      transition: transform 0.4s;
+      z-index: 300;
+    }
+    .toast.show { transform: translateX(0); }
+
+    /* ---------- Reveal Animation ---------- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 900px) {
+      .hero-grid, .about-grid, .contact-grid, .footer-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 700px) {
+      .menu-toggle { display: block; }
+      .nav-links {
+        position: absolute;
+        top: 100%; left: 0; right: 0;
+        background: var(--clr-surface);
+        flex-direction: column;
+        padding: 1.5rem;
+        gap: 1rem;
+        border-bottom: 1px solid var(--clr-border);
+        transform: translateY(-120%);
+        transition: transform var(--transition);
+      }
+      .nav-links.open { transform: translateY(0); }
+      .footer-grid { grid-template-columns: 1fr; }
+      .btn-outline { margin-left: 0; margin-top: 0.5rem; }
+    }
+
+    /* ---------- Accessibility ---------- */
+    :focus-visible {
+      outline: 3px solid var(--clr-accent);
+      outline-offset: 2px;
+    }
+    .sr-only {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0);
+      white-space: nowrap; border: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container nav">
+      <a href="#" class="logo" aria-label="Sweet Delights Home">Sweet<span>Delights</span></a>
+
+      <nav aria-label="Main navigation">
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#cakes">Cakes</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#testimonials">Reviews</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="cart-btn" id="cartBtn" aria-label="Open shopping cart">
+          🛒 Cart <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <div class="container hero-grid">
+      <div class="reveal">
+        <h1>Baked with <span>Love</span>,<br />Served with Joy</h1>
+        <p>Handcrafted cakes for birthdays, weddings, and every sweet moment in between. Made fresh daily with premium ingredients.</p>
+        <a href="#cakes" class="btn btn-primary">Explore Cakes</a>
+        <a href="#contact" class="btn btn-outline">Order Custom</a>
+      </div>
+      <div class="hero-image reveal">
+        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&q=80" alt="Beautiful chocolate cake with berries" loading="eager" />
+        <div class="hero-badge">🎉 Free Delivery!</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cakes -->
+  <section id="cakes">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Our Signature Cakes</h2>
+        <p>Choose from our delicious collection or request a custom design</p>
+      </div>
+
+      <div class="filters reveal" role="tablist" aria-label="Filter cakes by category">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="chocolate">Chocolate</button>
+        <button class="filter-btn" data-filter="vanilla">Vanilla</button>
+        <button class="filter-btn" data-filter="fruit">Fruit</button>
+        <button class="filter-btn" data-filter="wedding">Wedding</button>
+      </div>
+
+      <div class="products" id="productsGrid" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about" id="about">
+    <div class="container about-grid">
+      <div class="reveal">
+        <img src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=800&q=80" alt="Baker decorating a cake" loading="lazy" />
+      </div>
+      <div class="reveal">
+        <h2>Our Sweet Story</h2>
+        <p>Founded in 2010, Sweet Delights began as a small family kitchen with a big dream — to bring joy through every bite. Today, we're proud to serve thousands of happy customers with cakes made from scratch, using only the finest ingredients.</p>
+        <p>Every cake tells a story. Let us help you tell yours.</p>
+        <div class="stats">
+          <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Years of Joy</div></div>
+          <div class="stat"><div class="stat-num">5K+</div><div class="stat-label">Happy Clients</div></div>
+          <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Cake Varieties</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="testimonials">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>What Our Customers Say</h2>
+        <p>Real stories from real cake lovers</p>
+      </div>
+      <div class="testimonials-grid">
+        <article class="testimonial reveal">
+          <p>The wedding cake was absolutely stunning and tasted even better than it looked. Our guests couldn't stop talking about it!</p>
+          <div class="testimonial-author">
+            <div class="avatar">SM</div>
+            <div><div class="author-name">Sarah Mitchell</div><div class="author-role">Bride</div></div>
+          </div>
+        </article>
+        <article class="testimonial reveal">
+          <p>Best chocolate cake I've ever had. The texture, the flavor — pure perfection. My go-to bakery for every celebration.</p>
+          <div class="testimonial-author">
+            <div class="avatar">JR</div>
+            <div><div class="author-name">James Rodriguez</div><div class="author-role">Loyal Customer</div></div>
+          </div>
+        </article>
+        <article class="testimonial reveal">
+          <p>Ordered a custom cake for my daughter's birthday. They nailed the design and it was delicious. Highly recommend!</p>
+          <div class="testimonial-author">
+            <div class="avatar">EK</div>
+            <div><div class="author-name">Emma Kim</div><div class="author-role">Happy Mom</div></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Order Your Custom Cake</h2>
+        <p>Tell us about your dream cake and we'll make it happen</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <h3>Get in Touch</h3>
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div><strong>Visit Us</strong><br />123 Baker Street, Sweet City</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div><strong>Call Us</strong><br />+1 (555) 123-4567</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div><strong>Email</strong><br />hello@sweetdelights.com</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">🕐</div>
+            <div><strong>Hours</strong><br />Mon–Sat: 8am – 8pm</div>
+          </div>
+        </div>
+
+        <form class="reveal" id="orderForm" novalidate>
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" required />
+            <div class="form-error">Please enter your name</div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required />
+            <div class="form-error">Please enter a valid email</div>
+          </div>
+          <div class="form-group">
+            <label for="cakeType">Cake Type</label>
+            <select id="cakeType" name="cakeType" required>
+              <option value="">Select a type</option>
+              <option>Birthday</option>
+              <option>Wedding</option>
+              <option>Anniversary</option>
+              <option>Custom Design</option>
+            </select>
+            <div class="form-error">Please select a cake type</div>
+          </div>
+          <div class="form-group">
+            <label for="message">Your Message</label>
+            <textarea id="message" name="message" placeholder="Tell us about your dream cake..." required></textarea>
+            <div class="form-error">Please add a message</div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Send Order Request</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="logo" style="color:white;">Sweet<span>Delights</span></div>
+          <p style="margin-top:1rem; color:#bbb;">Handcrafted cakes made with love since 2010. Making every celebration sweeter.</p>
+          <div class="socials">
+            <a href="#" aria-label="Facebook">📘</a>
+            <a href="#" aria-label="Instagram">📷</a>
+            <a href="#" aria-label="Twitter">🐦</a>
+          </div>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#cakes">Cakes</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Categories</h4>
+          <ul>
+            <li><a href="#">Birthday</a></li>
+            <li><a href="#">Wedding</a></li>
+            <li><a href="#">Custom</a></li>
+            <li><a href="#">Vegan</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Newsletter</h4>
+          <p style="color:#bbb; margin-bottom:1rem;">Get sweet deals in your inbox.</p>
+          <form onsubmit="event.preventDefault(); showToast('Thanks for subscribing!');">
+            <input type="email" placeholder="Your email" required style="width:100%; padding:0.7rem; border-radius:8px; border:none; margin-bottom:0.5rem;" />
+            <button class="btn btn-primary" style="width:100%;">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 Sweet Delights Bakery. All rights reserved. Made with 🍰
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cart Modal -->
+  <div class="modal" id="cartModal" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="cartTitle">Your Cart</h3>
+        <button class="modal-close" id="cartClose" aria-label="Close cart">×</button>
+      </div>
+      <div id="cartItems"></div>
+      <div class="cart-total" id="cartTotal" style="display:none;">
+        <span>Total:</span>
+        <span id="totalAmount">$0</span>
+      </div>
+      <button class="btn btn-primary" id="checkoutBtn" style="width:100%; margin-top:1rem; display:none;">Checkout</button>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    /* ---------- Product Data ---------- */
+    const products = [
+      { id: 1, name: 'Chocolate Dream', desc: 'Rich dark chocolate with ganache', price: 35, category: 'chocolate', img: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&q=80', tag: 'Bestseller' },
+      { id: 2, name: 'Vanilla Cloud', desc: 'Light vanilla with buttercream', price: 30, category: 'vanilla', img: 'https://images.unsplash.com/photo-1586788680434-30d324b2d46f?w=500&q=80', tag: 'New' },
+      { id: 3, name: 'Strawberry Bliss', desc: 'Fresh strawberries and cream', price: 38, category: 'fruit', img: 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=500&q=80', tag: '' },
+      { id: 4, name: 'Elegant White', desc: 'Three-tier wedding masterpiece', price: 250, category: 'wedding', img: 'https://images.unsplash.com/photo-1535254973040-607b474cb50d?w=500&q=80', tag: 'Premium' },
+      { id: 5, name: 'Red Velvet', desc: 'Classic red velvet with cream cheese', price: 40, category: 'vanilla', img: 'https://images.unsplash.com/photo-1586985289688-2669a1e3fe5a?w=500&q=80', tag: '' },
+      { id: 6, name: 'Mango Paradise', desc: 'Tropical mango and passion fruit', price: 42, category: 'fruit', img: 'https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=500&q=80', tag: 'Seasonal' },
+      { id: 7, name: 'Truffle Delight', desc: 'Belgian chocolate truffle layers', price: 45, category: 'chocolate', img: 'https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=500&q=80', tag: '' },
+      { id: 8, name: 'Rose Garden', desc: 'Romantic floral wedding cake', price: 280, category: 'wedding', img: 'https://images.unsplash.com/photo-1623428187969-5da2dcea5ebc?w=500&q=80', tag: 'Premium' }
+    ];
+
+    /* ---------- State ---------- */
+    let cart = [];
+    let currentFilter = 'all';
+
+    /* ---------- DOM ---------- */
+    const grid = document.getElementById('productsGrid');
+    const cartCount = document.getElementById('cartCount');
+    const cartBtn = document.getElementById('cartBtn');
+    const cartModal = document.getElementById('cartModal');
+    const cartClose = document.getElementById('cartClose');
+    const cartItems = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+    const totalAmount = document.getElementById('totalAmount');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    const toast = document.getElementById('toast');
+
+    /* ---------- Render Products ---------- */
+    function renderProducts() {
+      const filtered = currentFilter === 'all' ? products : products.filter(p => p.category === currentFilter);
+      grid.innerHTML = filtered.map(p => `
+        <article class="product" data-category="${p.category}">
+          <div class="product-image">
+            ${p.tag ? `<span class="product-tag">${p.tag}</span>` : ''}
+            <img src="${p.img}" alt="${p.name} cake" loading="lazy" />
+          </div>
+          <div class="product-body">
+            <h3 class="product-title">${p.name}</h3>
+            <p class="product-desc">${p.desc}</p>
+            <div class="product-footer">
+              <span class="product-price">$${p.price}</span>
+              <button class="add-btn" data-id="${p.id}" aria-label="Add ${p.name} to cart">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+      `).join('');
+
+      grid.querySelectorAll('.add-btn').forEach(btn => {
+        btn.addEventListener('click', () => addToCart(Number(btn.dataset.id)));
+      });
+    }
+
+    /* ---------- Filters ---------- */
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.dataset.filter;
+        renderProducts();
+      });
+    });
+
+    /* ---------- Cart ---------- */
+    function addToCart(id) {
+      const product = products.find(p => p.id === id);
+      const existing = cart.find(i => i.id === id);
+      if (existing) existing.qty++;
+      else cart.push({ ...product, qty: 1 });
+      updateCart();
+      showToast(`${product.name} added to cart!`);
+    }
+
+    function removeFromCart(id) {
+      cart = cart.filter(i => i.id !== id);
+      updateCart();
+      renderCartModal();
+    }
+
+    function updateCart() {
+      const count = cart.reduce((sum, i) => sum + i.qty, 0);
+      cartCount.textContent = count;
+    }
+
+    function renderCartModal() {
+      if (cart.length === 0) {
+        cartItems.innerHTML = '<div class="empty-cart">Your cart is empty 🍰</div>';
+        cartTotal.style.display = 'none';
+        checkoutBtn.style.display = 'none';
+        return;
+      }
+      cartItems.innerHTML = cart.map(i => `
+        <div class="cart-item">
+          <img src="${i.img}" alt="${i.name}" />
+          <div class="cart-item-info">
+            <h4>${i.name}</h4>
+            <p>$${i.price} × ${i.qty}</p>
+            <button class="remove-btn" data-id="${i.id}">Remove</button>
+          </div>
+        </div>
+      `).join('');
+      const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+      totalAmount.textContent = `$${total}`;
+      cartTotal.style.display = 'flex';
+      checkoutBtn.style.display = 'block';
+
+      cartItems.querySelectorAll('.remove-btn').forEach(btn => {
+        btn.addEventListener('click', () => removeFromCart(Number(btn.dataset.id)));
+      });
+    }
+
+    cartBtn.addEventListener('click', () => {
+      renderCartModal();
+      cartModal.classList.add('open');
+    });
+    cartClose.addEventListener('click', () => cartModal.classList.remove('open'));
+    cartModal.addEventListener('click', e => { if (e.target === cartModal) cartModal.classList.remove('open'); });
+    checkoutBtn.addEventListener('click', () => {
+      showToast('Order placed! We\'ll contact you soon 🎉');
+      cart = [];
+      updateCart();
+      cartModal.classList.remove('open');
+    });
+
+    /* ---------- Mobile Menu ---------- */
+    menuToggle.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', open);
+    });
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    /* ---------- Toast ---------- */
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    /* ---------- Form Validation ---------- */
+    const form = document.getElementById('orderForm');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      let valid = true;
+      ['name', 'email', 'cakeType', 'message'].forEach(id => {
+        const input = document.getElementById(id);
+        const group = input.closest('.form-group');
+        let fieldValid = input.value.trim() !== '';
+        if (id === 'email') fieldValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value);
+        group.classList.toggle('error', !fieldValid);
+        if (!fieldValid) valid = false;
+      });
+      if (valid) {
+        showToast('Order request sent! We\'ll reply within 24h 🎂');
+        form.reset();
+      }
+    });
+
+    /* ---------- Reveal on Scroll ---------- */
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    /* ---------- Init ---------- */
+    renderProducts();
+  </script>
+</body>
+</html>
